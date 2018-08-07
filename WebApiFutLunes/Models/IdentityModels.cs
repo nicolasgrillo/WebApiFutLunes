@@ -10,6 +10,7 @@ namespace WebApiFutLunes.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public int Appearances { get; set; }
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)

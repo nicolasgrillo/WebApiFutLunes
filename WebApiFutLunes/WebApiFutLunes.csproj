@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201808070102377_Naming.Designer.cs">
       <DependentUpon>201808070102377_Naming.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808070106137_Appearances.cs" />
+    <Compile Include="Migrations\201808070106137_Appearances.Designer.cs">
+      <DependentUpon>201808070106137_Appearances.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -238,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808070102377_Naming.resx">
       <DependentUpon>201808070102377_Naming.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808070106137_Appearances.resx">
+      <DependentUpon>201808070106137_Appearances.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -332,7 +332,8 @@ namespace WebApiFutLunes.Controllers
                 UserName = model.Username,
                 Email = model.Email,
                 FirstName = model.FirstName?? "",
-                LastName = model.LastName?? ""
+                LastName = model.LastName?? "",
+                Appearances = 0
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
