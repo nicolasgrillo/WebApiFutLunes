@@ -20,7 +20,7 @@ namespace WebApiFutLunes.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("FutLunesDb", throwIfV1Schema: false)
         {
         }
         
