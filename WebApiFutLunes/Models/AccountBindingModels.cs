@@ -34,8 +34,22 @@ namespace WebApiFutLunes.Models
     public class RegisterBindingModel
     {
         [Required]
+        [StringLength(20, ErrorMessage = "Username cannot be longer than 20 characters.")]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
+        [Required]
+        [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Display(Name = "FirstName")]
+        [MaxLength(100)]
+        public string FirstName { get; set; }
+
+        [Display(Name = "LastName")]
+        [MaxLength(100)]
+        public string LastName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
