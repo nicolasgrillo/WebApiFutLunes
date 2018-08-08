@@ -1,5 +1,5 @@
 using System.Data.Entity.Migrations;
-using WebApiFutLunes.Data.Models;
+using WebApiFutLunes.Data.Contexts;
 
 namespace WebApiFutLunes.Data.Migrations
 {

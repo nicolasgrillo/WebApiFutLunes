@@ -4,7 +4,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using WebApiFutLunes.Data.Models;
+using WebApiFutLunes.Data.Contexts;
 using WebApiFutLunes.Providers;
 
 namespace WebApiFutLunes

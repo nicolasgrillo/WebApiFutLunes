@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contexts\ApplicationDbContext.cs" />
     <Compile Include="Migrations\201808070036597_InitialCreate.cs" />
     <Compile Include="Migrations\201808070036597_InitialCreate.Designer.cs">
       <DependentUpon>201808070036597_InitialCreate.cs</DependentUpon>
