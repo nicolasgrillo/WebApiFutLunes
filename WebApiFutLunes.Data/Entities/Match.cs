@@ -15,7 +15,7 @@ namespace WebApiFutLunes.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string LocationTitle { get; set; }
-        public string LocationMapUrl { get; set; }
+        public Uri LocationMapUrl { get; set; }
         public DateTime MatchDate { get; set; }
         public int PlayerLimit { get; set; }
         public virtual ICollection<ApplicationUser> Players { get; set; }
