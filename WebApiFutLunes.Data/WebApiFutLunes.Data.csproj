@@ -75,6 +75,10 @@
     <Compile Include="Migrations\201808081312127_Matches.Designer.cs">
       <DependentUpon>201808081312127_Matches.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808082032241_StringForMapUrl.cs" />
+    <Compile Include="Migrations\201808082032241_StringForMapUrl.Designer.cs">
+      <DependentUpon>201808082032241_StringForMapUrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\ApplicationUserModel.cs" />
@@ -96,6 +100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808081312127_Matches.resx">
       <DependentUpon>201808081312127_Matches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808082032241_StringForMapUrl.resx">
+      <DependentUpon>201808082032241_StringForMapUrl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
