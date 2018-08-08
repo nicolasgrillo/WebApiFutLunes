@@ -45,7 +45,7 @@ namespace WebApiFutLunes.Controllers
 
         // Add new match
         // POST api/matches
-        public async Task<IHttpActionResult> Post([FromBody] AddMatchModel matchModel)
+        public async Task<IHttpActionResult> Post([FromBody] AddUpdateMatchModel matchModel)
         {
             if (!ModelState.IsValid)
             {
