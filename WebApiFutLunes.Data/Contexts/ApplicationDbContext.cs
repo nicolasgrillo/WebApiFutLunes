@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using WebApiFutLunes.Data.Entities;
 using WebApiFutLunes.Data.Models;
 
 namespace WebApiFutLunes.Data.Contexts
@@ -14,5 +16,7 @@ namespace WebApiFutLunes.Data.Contexts
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Match> Matches { get; set; }
     }
 }
