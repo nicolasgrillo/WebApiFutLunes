@@ -68,5 +68,36 @@ namespace WebApiFutLunes.Controllers
             }
             return Created(Request.RequestUri + match.Id.ToString(), match);
         }
+
+        // Update match
+        // PUT api/matches
+        public async Task<IHttpActionResult> Put(int id, [FromBody] AddUpdateMatchModel matchModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var match = _context.Matches.FirstOrDefault(m => m.Id == id);
+
+            if (match != null)
+            {
+                match.MatchDate = matchModel.MatchDate;
+                match.LocationMapUrl = matchModel.LocationMapUrl;
+                match.LocationTitle = matchModel.LocationTitle;
+                match.PlayerLimit = matchModel.PlayerLimit;
+
+                if (await _context.SaveChangesAsync() <= 0)
+                {
+                    return InternalServerError();
+                }
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            return Ok(match);
+        }
     }
 }
