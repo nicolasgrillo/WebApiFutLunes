@@ -1,8 +1,7 @@
-namespace WebApiFutLunes.Migrations
+using System.Data.Entity.Migrations;
+
+namespace WebApiFutLunes.Data.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class Appearances : DbMigration
     {
         public override void Up()

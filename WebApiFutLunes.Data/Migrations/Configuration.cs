@@ -1,12 +1,8 @@
+using System.Data.Entity.Migrations;
 using WebApiFutLunes.Data.Models;
 
-namespace WebApiFutLunes.Migrations
+namespace WebApiFutLunes.Data.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
     internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()

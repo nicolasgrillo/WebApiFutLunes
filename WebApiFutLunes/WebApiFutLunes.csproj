@@ -201,19 +201,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808070036597_InitialCreate.cs" />
-    <Compile Include="Migrations\201808070036597_InitialCreate.Designer.cs">
-      <DependentUpon>201808070036597_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808070102377_Naming.cs" />
-    <Compile Include="Migrations\201808070102377_Naming.Designer.cs">
-      <DependentUpon>201808070102377_Naming.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808070106137_Appearances.cs" />
-    <Compile Include="Migrations\201808070106137_Appearances.Designer.cs">
-      <DependentUpon>201808070106137_Appearances.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -232,17 +219,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808070036597_InitialCreate.resx">
-      <DependentUpon>201808070036597_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808070102377_Naming.resx">
-      <DependentUpon>201808070102377_Naming.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808070106137_Appearances.resx">
-      <DependentUpon>201808070106137_Appearances.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
