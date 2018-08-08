@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WebApiFutLunes.Models
+namespace WebApiFutLunes.Data.Models
 {
     // Models returned by AccountController actions.
 

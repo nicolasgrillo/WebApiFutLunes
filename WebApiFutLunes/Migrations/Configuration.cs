@@ -1,3 +1,5 @@
+using WebApiFutLunes.Data.Models;
+
 namespace WebApiFutLunes.Migrations
 {
     using System;
@@ -5,7 +7,7 @@ namespace WebApiFutLunes.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<WebApiFutLunes.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
@@ -13,7 +15,7 @@ namespace WebApiFutLunes.Migrations
             ContextKey = "WebApiFutLunes.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(WebApiFutLunes.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

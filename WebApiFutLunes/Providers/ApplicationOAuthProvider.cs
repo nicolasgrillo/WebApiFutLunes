@@ -6,7 +6,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using WebApiFutLunes.Models;
+using WebApiFutLunes.Data.Models;
 
 namespace WebApiFutLunes.Providers
 {

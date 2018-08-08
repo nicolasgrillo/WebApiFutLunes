@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using WebApiFutLunes.Models;
+using WebApiFutLunes.Data.Models;
 
 namespace WebApiFutLunes
 {

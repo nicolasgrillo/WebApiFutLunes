@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
 
-namespace WebApiFutLunes.Models
+namespace WebApiFutLunes.Data.Models
 {
     // Models used as parameters to AccountController actions.
 
