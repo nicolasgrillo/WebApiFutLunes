@@ -71,6 +71,10 @@
     <Compile Include="Migrations\201808070106137_Appearances.Designer.cs">
       <DependentUpon>201808070106137_Appearances.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808081312127_Matches.cs" />
+    <Compile Include="Migrations\201808081312127_Matches.Designer.cs">
+      <DependentUpon>201808081312127_Matches.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\ApplicationUserModel.cs" />
@@ -89,6 +93,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808070106137_Appearances.resx">
       <DependentUpon>201808070106137_Appearances.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808081312127_Matches.resx">
+      <DependentUpon>201808081312127_Matches.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
