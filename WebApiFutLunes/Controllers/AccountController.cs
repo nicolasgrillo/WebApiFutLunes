@@ -50,67 +50,12 @@ namespace WebApiFutLunes.Controllers
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        // GET api/Account/UserInfo
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("UserInfo")]
-        public UserInfoViewModel GetUserInfo()
-        {
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
-            return new UserInfoViewModel
-            {
-                Email = User.Identity.GetUserName(),
-                HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
-            };
-        }
-
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()
         {
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Ok();
-        }
-
-        // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
-        [Route("ManageInfo")]
-        public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
-        {
-            IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-
-            if (user == null)
-            {
-                return null;
-            }
-
-            List<UserLoginInfoViewModel> logins = new List<UserLoginInfoViewModel>();
-
-            foreach (IdentityUserLogin linkedAccount in user.Logins)
-            {
-                logins.Add(new UserLoginInfoViewModel
-                {
-                    LoginProvider = linkedAccount.LoginProvider,
-                    ProviderKey = linkedAccount.ProviderKey
-                });
-            }
-
-            if (user.PasswordHash != null)
-            {
-                logins.Add(new UserLoginInfoViewModel
-                {
-                    LoginProvider = LocalLoginProvider,
-                    ProviderKey = user.UserName,
-                });
-            }
-
-            return new ManageInfoViewModel
-            {
-                LocalLoginProvider = LocalLoginProvider,
-                Email = user.UserName,
-                Logins = logins,
-                ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
-            };
         }
 
         // POST api/Account/ChangePassword
@@ -274,47 +219,6 @@ namespace WebApiFutLunes.Controllers
             }
 
             return Ok();
-        }
-
-        // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
-        [AllowAnonymous]
-        [Route("ExternalLogins")]
-        public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
-        {
-            IEnumerable<AuthenticationDescription> descriptions = Authentication.GetExternalAuthenticationTypes();
-            List<ExternalLoginViewModel> logins = new List<ExternalLoginViewModel>();
-
-            string state;
-
-            if (generateState)
-            {
-                const int strengthInBits = 256;
-                state = RandomOAuthStateGenerator.Generate(strengthInBits);
-            }
-            else
-            {
-                state = null;
-            }
-
-            foreach (AuthenticationDescription description in descriptions)
-            {
-                ExternalLoginViewModel login = new ExternalLoginViewModel
-                {
-                    Name = description.Caption,
-                    Url = Url.Route("ExternalLogin", new
-                    {
-                        provider = description.AuthenticationType,
-                        response_type = "token",
-                        client_id = Startup.PublicClientId,
-                        redirect_uri = new Uri(Request.RequestUri, returnUrl).AbsoluteUri,
-                        state = state
-                    }),
-                    State = state
-                };
-                logins.Add(login);
-            }
-
-            return logins;
         }
 
         // POST api/Account/Register
