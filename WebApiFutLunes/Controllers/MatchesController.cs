@@ -66,7 +66,7 @@ namespace WebApiFutLunes.Controllers
             {
                 return InternalServerError();
             }
-            return Ok(match);
+            return Created(Request.RequestUri + match.Id.ToString(), match);
         }
     }
 }
