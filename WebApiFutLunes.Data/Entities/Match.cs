@@ -18,6 +18,6 @@ namespace WebApiFutLunes.Data.Entities
         public string LocationMapUrl { get; set; }
         public DateTime MatchDate { get; set; }
         public int PlayerLimit { get; set; }
-        public ICollection<ApplicationUser> Players { get; set; }
+        public virtual ICollection<ApplicationUser> Players { get; set; }
     }
 }
