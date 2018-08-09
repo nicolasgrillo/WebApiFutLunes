@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApiFutLunes.Models.Player
 {
@@ -8,5 +9,6 @@ namespace WebApiFutLunes.Models.Player
         public string UserName { get; set; }
         [Required]
         public int MatchId { get; set; }
+        public DateTime InscriptionDate { get; set; }
     }
 }
