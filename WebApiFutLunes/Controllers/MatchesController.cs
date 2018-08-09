@@ -77,7 +77,7 @@ namespace WebApiFutLunes.Controllers
         // Add player to match
         // POST api/matches
         [Route("signup")]
-        public async Task<IHttpActionResult> Post([FromBody] PlayerToMatchModel transaction)
+        public async Task<IHttpActionResult> SignUp([FromBody] PlayerToMatchModel transaction)
         {
             if (!ModelState.IsValid)
             {
@@ -103,8 +103,52 @@ namespace WebApiFutLunes.Controllers
                 }
                 else
                 {
+                    //TODO: Should enable match transactions only for future matches
                     match.Players.Add(playerEntity);
                     playerEntity.Appearances++;
+                }
+            }
+
+            if (await _context.SaveChangesAsync() <= 0)
+            {
+                return InternalServerError();
+            }
+            return Ok(match);
+        }
+
+        // Add player to match
+        // POST api/matches
+        [Route("dismiss")]
+        public async Task<IHttpActionResult> Dismiss([FromBody] PlayerToMatchModel transaction)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+
+            var match = _context.Matches.FirstOrDefault(m => m.Id == transaction.MatchId);
+            if (match == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var playerEntity = _context.Users.FirstOrDefault(p => p.UserName == transaction.UserName);
+                if (playerEntity == null)
+                {
+                    return NotFound();
+                }
+
+                if (match.Players.Contains(playerEntity))
+                {
+                    //TODO: Should enable match transactions only for future matches
+                    match.Players.Remove(playerEntity);
+                    playerEntity.Appearances--;
+                }
+                else
+                {
+                    return BadRequest("Player was not signed up for the match");
                 }
             }
 
