@@ -63,7 +63,7 @@ namespace WebApiFutLunes.Controllers
                 LocationTitle = matchModel.LocationTitle,
                 MatchDate = matchModel.MatchDate,
                 PlayerLimit = matchModel.PlayerLimit,
-                Players = new List<ApplicationUser>()
+                Players = new List<UserSubscription>()
             };
 
             _context.Matches.Add(match);
@@ -97,14 +97,20 @@ namespace WebApiFutLunes.Controllers
                     return NotFound();
                 }
 
-                if (match.Players.Contains(playerEntity))
+                var playerDto = new UserSubscription()
+                {
+                    SubscriptionDate = DateTime.Now,
+                    User = playerEntity
+                };
+
+                if (match.Players.Contains(playerDto))
                 {
                     return BadRequest("Player is already in the match");
                 }
                 else
                 {
                     //TODO: Should enable match transactions only for future matches
-                    match.Players.Add(playerEntity);
+                    match.Players.Add(playerDto);
                     playerEntity.Appearances++;
                 }
             }
@@ -140,10 +146,16 @@ namespace WebApiFutLunes.Controllers
                     return NotFound();
                 }
 
-                if (match.Players.Contains(playerEntity))
+                var playerDto = new UserSubscription()
+                {
+                    SubscriptionDate = DateTime.Now,
+                    User = playerEntity
+                };
+
+                if (match.Players.Contains(playerDto))
                 {
                     //TODO: Should enable match transactions only for future matches
-                    match.Players.Remove(playerEntity);
+                    match.Players.Remove(playerDto);
                     playerEntity.Appearances--;
                 }
                 else
