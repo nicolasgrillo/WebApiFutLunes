@@ -71,7 +71,7 @@ namespace WebApiFutLunes.Controllers
             {
                 return InternalServerError();
             }
-            return Created(Request.RequestUri + match.Id.ToString(), match);
+            return StatusCode(HttpStatusCode.Created);
         }
 
         // Add player to match
@@ -113,7 +113,7 @@ namespace WebApiFutLunes.Controllers
             {
                 return InternalServerError();
             }
-            return Ok(match);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // Add player to match
@@ -156,7 +156,7 @@ namespace WebApiFutLunes.Controllers
             {
                 return InternalServerError();
             }
-            return Ok(match);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // Update match
@@ -186,8 +186,7 @@ namespace WebApiFutLunes.Controllers
             {
                 return NotFound();
             }
-
-            return Ok(match);
+            return StatusCode(HttpStatusCode.NoContent);
         }
     }
 }
