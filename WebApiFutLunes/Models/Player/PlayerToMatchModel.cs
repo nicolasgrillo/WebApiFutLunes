@@ -9,6 +9,6 @@ namespace WebApiFutLunes.Models.Player
         public string UserName { get; set; }
         [Required]
         public int MatchId { get; set; }
-        public DateTime InscriptionDate { get; set; }
+        public DateTime SubscriptionDate { get; set; }
     }
 }
