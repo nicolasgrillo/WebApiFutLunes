@@ -60,30 +60,6 @@
     <Compile Include="Contexts\ApplicationDbContext.cs" />
     <Compile Include="DTOs\UserSubscription.cs" />
     <Compile Include="Entities\Match.cs" />
-    <Compile Include="Migrations\201808070036597_InitialCreate.cs" />
-    <Compile Include="Migrations\201808070036597_InitialCreate.Designer.cs">
-      <DependentUpon>201808070036597_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808070102377_Naming.cs" />
-    <Compile Include="Migrations\201808070102377_Naming.Designer.cs">
-      <DependentUpon>201808070102377_Naming.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808070106137_Appearances.cs" />
-    <Compile Include="Migrations\201808070106137_Appearances.Designer.cs">
-      <DependentUpon>201808070106137_Appearances.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808081312127_Matches.cs" />
-    <Compile Include="Migrations\201808081312127_Matches.Designer.cs">
-      <DependentUpon>201808081312127_Matches.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808082032241_StringForMapUrl.cs" />
-    <Compile Include="Migrations\201808082032241_StringForMapUrl.Designer.cs">
-      <DependentUpon>201808082032241_StringForMapUrl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808091831202_UserSubscription.cs" />
-    <Compile Include="Migrations\201808091831202_UserSubscription.Designer.cs">
-      <DependentUpon>201808091831202_UserSubscription.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DTOs\AccountBindingModels.cs" />
     <Compile Include="DTOs\ApplicationUserModel.cs" />
@@ -92,26 +68,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808070036597_InitialCreate.resx">
-      <DependentUpon>201808070036597_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808070102377_Naming.resx">
-      <DependentUpon>201808070102377_Naming.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808070106137_Appearances.resx">
-      <DependentUpon>201808070106137_Appearances.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808081312127_Matches.resx">
-      <DependentUpon>201808081312127_Matches.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808082032241_StringForMapUrl.resx">
-      <DependentUpon>201808082032241_StringForMapUrl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808091831202_UserSubscription.resx">
-      <DependentUpon>201808091831202_UserSubscription.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
