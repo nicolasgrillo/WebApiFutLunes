@@ -80,8 +80,8 @@
       <DependentUpon>201808082032241_StringForMapUrl.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountBindingModels.cs" />
-    <Compile Include="Models\ApplicationUserModel.cs" />
+    <Compile Include="DTOs\AccountBindingModels.cs" />
+    <Compile Include="DTOs\ApplicationUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
