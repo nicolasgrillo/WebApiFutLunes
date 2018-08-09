@@ -11,7 +11,7 @@ using AutoMapper;
 using Microsoft.Ajax.Utilities;
 using WebApiFutLunes.Data.Contexts;
 using WebApiFutLunes.Data.Entities;
-using WebApiFutLunes.Data.Models;
+using WebApiFutLunes.Data.DTOs;
 using WebApiFutLunes.Models.Match;
 using WebApiFutLunes.Models.Player;
 

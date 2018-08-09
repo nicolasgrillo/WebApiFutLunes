@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using WebApiFutLunes.Data.Contexts;
-using WebApiFutLunes.Data.Models;
+using WebApiFutLunes.Data.DTOs;
 using WebApiFutLunes.Models.Player;
 
 namespace WebApiFutLunes.Controllers

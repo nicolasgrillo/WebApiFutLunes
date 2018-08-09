@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WebApiFutLunes.Data.Entities;
-using WebApiFutLunes.Data.Models;
+using WebApiFutLunes.Data.DTOs;
 
 namespace WebApiFutLunes.Data.Contexts
 {

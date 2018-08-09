@@ -13,7 +13,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using WebApiFutLunes.Data.DTOs;
-using WebApiFutLunes.Data.Models;
+using WebApiFutLunes.Data.DTOs;
 using WebApiFutLunes.Providers;
 using WebApiFutLunes.Results;
 
