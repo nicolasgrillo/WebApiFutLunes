@@ -49,6 +49,7 @@ namespace WebApiFutLunes.Controllers
 
         // Add new match
         // POST api/matches
+        [Route("add")]
         public async Task<IHttpActionResult> Post([FromBody] AddUpdateMatchModel matchModel)
         {
             if (!ModelState.IsValid)
@@ -74,9 +75,9 @@ namespace WebApiFutLunes.Controllers
         }
 
         // Add player to match
-        // POST api/matches/1
-        [Route("{matchId}")]
-        public async Task<IHttpActionResult> Post(int matchId, [FromBody] AddPlayerToMatchModel player)
+        // POST api/matches
+        [Route("signup")]
+        public async Task<IHttpActionResult> Post([FromBody] AddPlayerToMatchModel transaction)
         {
             if (!ModelState.IsValid)
             {
@@ -84,13 +85,13 @@ namespace WebApiFutLunes.Controllers
             }
 
 
-            var match = _context.Matches.FirstOrDefault(m => m.Id == matchId);
+            var match = _context.Matches.FirstOrDefault(m => m.Id == transaction.MatchId);
             if (match == null)
             {
                 return NotFound();
             }
             else { 
-                var playerEntity = _context.Users.FirstOrDefault(p => p.UserName == player.UserName);
+                var playerEntity = _context.Users.FirstOrDefault(p => p.UserName == transaction.UserName);
                 if (playerEntity == null)
                 {
                     return NotFound();

@@ -6,5 +6,7 @@ namespace WebApiFutLunes.Models.Player
     {
         [Required]
         public string UserName { get; set; }
+        [Required]
+        public int MatchId { get; set; }
     }
 }
