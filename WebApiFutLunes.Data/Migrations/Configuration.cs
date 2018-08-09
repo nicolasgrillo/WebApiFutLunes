@@ -8,7 +8,7 @@ namespace WebApiFutLunes.Data.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "WebApiFutLunes.Models.ApplicationDbContext";
+            ContextKey = "WebApiFutLunes.Data.Contexts.ApplicationDbContext";
         }
 
         protected override void Seed(ApplicationDbContext context)
