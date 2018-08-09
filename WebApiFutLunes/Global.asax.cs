@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using System.Web.Mvc;
+using WebApiFutLunes.Helpers.AutoMapper;
 
 namespace WebApiFutLunes
 {
@@ -10,6 +11,7 @@ namespace WebApiFutLunes
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            AutoMapperConfiguration.Configure();
         }
     }
 }
