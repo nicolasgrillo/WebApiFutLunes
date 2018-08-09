@@ -60,14 +60,23 @@
     <Compile Include="Contexts\ApplicationDbContext.cs" />
     <Compile Include="DTOs\UserSubscription.cs" />
     <Compile Include="Entities\Match.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DTOs\AccountBindingModels.cs" />
     <Compile Include="DTOs\ApplicationUserModel.cs" />
+    <Compile Include="Migrations\201808091854147_Initial.cs" />
+    <Compile Include="Migrations\201808091854147_Initial.Designer.cs">
+      <DependentUpon>201808091854147_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201808091854147_Initial.resx">
+      <DependentUpon>201808091854147_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
