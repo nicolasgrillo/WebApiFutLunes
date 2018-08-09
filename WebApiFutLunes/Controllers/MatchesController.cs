@@ -6,14 +6,18 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Results;
+using AutoMapper;
 using Microsoft.Ajax.Utilities;
 using WebApiFutLunes.Data.Contexts;
 using WebApiFutLunes.Data.Entities;
 using WebApiFutLunes.Data.Models;
 using WebApiFutLunes.Models.Match;
+using WebApiFutLunes.Models.Player;
 
 namespace WebApiFutLunes.Controllers
 {
+    [RoutePrefix("api/matches")]
     public class MatchesController : ApiController
     {
         private ApplicationDbContext _context { get; set; }
@@ -67,6 +71,47 @@ namespace WebApiFutLunes.Controllers
                 return InternalServerError();
             }
             return Created(Request.RequestUri + match.Id.ToString(), match);
+        }
+
+        // Add player to match
+        // POST api/matches/1
+        [Route("{matchId}")]
+        public async Task<IHttpActionResult> Post(int matchId, [FromBody] AddPlayerToMatchModel player)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+
+            var match = _context.Matches.FirstOrDefault(m => m.Id == matchId);
+            if (match == null)
+            {
+                return NotFound();
+            }
+            else { 
+                var playerEntity = _context.Users.FirstOrDefault(p => p.UserName == player.UserName);
+                if (playerEntity == null)
+                {
+                    return NotFound();
+                }
+
+                if (match.Players.Contains(playerEntity))
+                {
+                    return BadRequest("Player is already in the match");
+                }
+                else
+                {
+                    match.Players.Add(playerEntity);
+                    playerEntity.Appearances++;
+                }
+            }
+
+            if (await _context.SaveChangesAsync() <= 0)
+            {
+                return InternalServerError();
+            }
+            return Ok(match);
         }
 
         // Update match
