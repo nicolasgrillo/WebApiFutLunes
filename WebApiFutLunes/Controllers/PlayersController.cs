@@ -1,7 +1,11 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web.Http;
+using AutoMapper;
 using WebApiFutLunes.Data.Contexts;
+using WebApiFutLunes.Data.Models;
+using WebApiFutLunes.Models.Player;
 
 namespace WebApiFutLunes.Controllers
 {
@@ -16,7 +20,9 @@ namespace WebApiFutLunes.Controllers
 
         public async Task<IHttpActionResult> Get()
         {
-            var players = await _context.Users.ToListAsync();
+            List<PlayerModel> players = 
+                Mapper.Map<List<ApplicationUser>, List<PlayerModel>>(await _context.Users.ToListAsync());
+
             if (players == null)
             {
                 return NotFound();
