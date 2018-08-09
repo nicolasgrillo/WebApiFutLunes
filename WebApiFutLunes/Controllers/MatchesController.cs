@@ -77,7 +77,7 @@ namespace WebApiFutLunes.Controllers
         // Add player to match
         // POST api/matches
         [Route("signup")]
-        public async Task<IHttpActionResult> Post([FromBody] AddPlayerToMatchModel transaction)
+        public async Task<IHttpActionResult> Post([FromBody] PlayerToMatchModel transaction)
         {
             if (!ModelState.IsValid)
             {

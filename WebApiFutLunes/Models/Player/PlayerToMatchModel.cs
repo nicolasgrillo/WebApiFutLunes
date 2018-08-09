@@ -2,7 +2,7 @@
 
 namespace WebApiFutLunes.Models.Player
 {
-    public class AddPlayerToMatchModel
+    public class PlayerToMatchModel
     {
         [Required]
         public string UserName { get; set; }
