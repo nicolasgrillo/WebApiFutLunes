@@ -11,9 +11,9 @@ namespace WebApiFutLunes.Data.Repositories
     {
         private ApplicationDbContext _context;
 
-        public MatchesRepository()
+        public MatchesRepository(ApplicationDbContext context)
         {
-            _context = new ApplicationDbContext();
+            _context = context;
         }
 
         public async Task<List<Match>> GetAllMatchesAsync()

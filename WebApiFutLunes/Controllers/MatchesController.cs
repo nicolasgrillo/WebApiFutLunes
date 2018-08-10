@@ -5,9 +5,11 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
+using AutoMapper;
 using WebApiFutLunes.Data.Contexts;
 using WebApiFutLunes.Data.Entities;
 using WebApiFutLunes.Data.DTOs;
+using WebApiFutLunes.Data.Repositories;
 using WebApiFutLunes.Models.Match;
 using WebApiFutLunes.Models.Player;
 
@@ -17,15 +19,17 @@ namespace WebApiFutLunes.Controllers
     public class MatchesController : ApiController
     {
         private ApplicationDbContext _context { get; set; }
+        private MatchesRepository _repo { get; set; }
 
         public MatchesController()
         {
             _context = new ApplicationDbContext();
+            _repo = new MatchesRepository(_context);
         }
 
         public async Task<IHttpActionResult> Get()
         {
-            var result = await _context.Matches.ToListAsync();
+            var result = await _repo.GetAllMatchesAsync();
             if (!result.Any())
             {
                 return NotFound();
@@ -35,7 +39,7 @@ namespace WebApiFutLunes.Controllers
 
         public async Task<IHttpActionResult> Get(int id)
         {
-            var result = await _context.Matches.FindAsync(id);
+            var result = await _repo.GetMatchByIdAsync(id);
             if (result == null)
             {
                 return NotFound();
@@ -61,9 +65,8 @@ namespace WebApiFutLunes.Controllers
                 PlayerLimit = matchModel.PlayerLimit,
                 Players = new List<UserSubscription>()
             };
-
-            _context.Matches.Add(match);
-            if (await _context.SaveChangesAsync() <= 0)
+            
+            if (await _repo.AddMatchAsync(match) <= 0)
             {
                 return InternalServerError();
             }
@@ -81,7 +84,7 @@ namespace WebApiFutLunes.Controllers
             }
 
 
-            var match = _context.Matches.FirstOrDefault(m => m.Id == transaction.MatchId);
+            Match match = await _repo.GetMatchByIdAsync(transaction.MatchId);
             if (match == null)
             {
                 return NotFound();
@@ -105,15 +108,13 @@ namespace WebApiFutLunes.Controllers
                 }
                 else
                 {
-                    match.Players.Add(playerDto);
+                    if (await _repo.SignUpPlayerAsync(match, playerDto) <= 0)
+                    {
+                        return InternalServerError();
+                    }
+                    return StatusCode(HttpStatusCode.NoContent);
                 }
             }
-
-            if (await _context.SaveChangesAsync() <= 0)
-            {
-                return InternalServerError();
-            }
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // Remove player from match
@@ -143,19 +144,17 @@ namespace WebApiFutLunes.Controllers
                 var subscription = match.Players.SingleOrDefault(p => p.User.UserName == playerEntity.UserName);
                 if (subscription != null)
                 {
-                    match.Players.Remove(subscription);
+                    if (await _repo.DismissPlayerAsync(match, subscription) <= 0)
+                    {
+                        return InternalServerError();
+                    }
+                    return StatusCode(HttpStatusCode.NoContent);
                 }
                 else
                 {
                     return BadRequest("Player was not signed up for the match");
                 }
             }
-
-            if (await _context.SaveChangesAsync() <= 0)
-            {
-                return InternalServerError();
-            }
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // Update match
@@ -169,16 +168,22 @@ namespace WebApiFutLunes.Controllers
                 return BadRequest(ModelState);
             }
 
-            var match = _context.Matches.FirstOrDefault(m => m.Id == id);
+            var match = await _repo.GetMatchByIdAsync(id);
 
             if (match != null)
             {
-                match.MatchDate = matchModel.MatchDate;
-                match.LocationMapUrl = matchModel.LocationMapUrl;
-                match.LocationTitle = matchModel.LocationTitle;
-                match.PlayerLimit = matchModel.PlayerLimit;
+                //TODO: Following line not working -- AutoMapper
+                //AddUpdateMatchDto aumDto = Mapper.Map<AddUpdateMatchModel, AddUpdateMatchDto>(matchModel);
+
+                AddUpdateMatchDto aumDto = new AddUpdateMatchDto()
+                {
+                    LocationTitle = matchModel.LocationTitle,
+                    LocationMapUrl = matchModel.LocationMapUrl,
+                    MatchDate = matchModel.MatchDate,
+                    PlayerLimit = matchModel.PlayerLimit
+                };
                 
-                if (await _context.SaveChangesAsync() <= 0)
+                if (await _repo.UpdateMatchAsync(match, aumDto) <= 0)
                 {
                     return InternalServerError();
                 }
@@ -195,19 +200,15 @@ namespace WebApiFutLunes.Controllers
         [Route("{id}/confirm")]
         public async Task<IHttpActionResult> Confirm(int id)
         {
-            var match = _context.Matches.FirstOrDefault(m => m.Id == id);
+            var match = await _repo.GetMatchByIdAsync(id);
 
             if (match != null)
             {
                 if (match.MatchDate.CompareTo(DateTime.Now) >= 1)
                     return BadRequest("Match must have happened to be confirmed.");
 
-                foreach (var userSubscription in match.Players)
-                {
-                    userSubscription.User.Appearances++;
-                }
                 
-                if (await _context.SaveChangesAsync() <= 0)
+                if (await _repo.ConfirmMatchAsync(match) <= 0)
                 {
                     return InternalServerError();
                 }
