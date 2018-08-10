@@ -1,3 +1,8 @@
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using WebApiFutLunes.Data.Contexts;
+using WebApiFutLunes.Data.DTOs;
+
 namespace WebApiFutLunes.Data.Migrations
 {
     using System;
@@ -14,10 +19,30 @@ namespace WebApiFutLunes.Data.Migrations
 
         protected override void Seed(WebApiFutLunes.Data.Contexts.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+
+            var user = new ApplicationUser()
+            {
+                UserName = "admin",
+                Email = "adming@futlunes.com",
+                EmailConfirmed = true,
+                FirstName = "admin",
+                LastName = "futlunes"
+            };
+
+            manager.Create(user, "fut@LUNES123");
+
+            if (!roleManager.Roles.Any())
+            {
+                roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "User" });
+            }
+
+            var adminUser = manager.FindByName("admin");
+
+            manager.AddToRoles(adminUser.Id, new string[] { "Admin" });
         }
     }
 }
