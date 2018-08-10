@@ -109,7 +109,6 @@ namespace WebApiFutLunes.Controllers
                 }
                 else
                 {
-                    //TODO: Should enable match transactions only for future matches
                     match.Players.Add(playerDto);
                 }
             }
@@ -121,7 +120,7 @@ namespace WebApiFutLunes.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // Add player to match
+        // Remove player from match
         // POST api/matches
         [Route("dismiss")]
         public async Task<IHttpActionResult> Dismiss([FromBody] PlayerToMatchModel transaction)
@@ -145,16 +144,10 @@ namespace WebApiFutLunes.Controllers
                     return NotFound();
                 }
 
-                var playerDto = new UserSubscription()
+                var subscription = match.Players.SingleOrDefault(p => p.User.UserName == playerEntity.UserName);
+                if (subscription != null)
                 {
-                    SubscriptionDate = DateTime.Now,
-                    User = playerEntity
-                };
-
-                if (match.Players.Contains(playerDto))
-                {
-                    //TODO: Should enable match transactions only for future matches
-                    match.Players.Remove(playerDto);
+                    match.Players.Remove(subscription);
                 }
                 else
                 {
@@ -171,6 +164,8 @@ namespace WebApiFutLunes.Controllers
 
         // Update match
         // PUT api/matches
+        // TODO: Check admin role
+        [HttpPut]
         public async Task<IHttpActionResult> Update(int id, [FromBody] AddUpdateMatchModel matchModel)
         {
             if (!ModelState.IsValid)
@@ -200,7 +195,7 @@ namespace WebApiFutLunes.Controllers
         }
 
         // Confirm match
-        // PUT api/matches/{id}/confirm
+        // POST api/matches/{id}/confirm
         [Route("{id}/confirm")]
         public async Task<IHttpActionResult> Confirm(int id)
         {
