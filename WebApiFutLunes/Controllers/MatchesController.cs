@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using AutoMapper;
 using WebApiFutLunes.Data.Contexts;
 using WebApiFutLunes.Data.Entities;
 using WebApiFutLunes.Data.DTOs;
-using WebApiFutLunes.Data.Repositories;
+using WebApiFutLunes.Data.Repositories.Interface;
 using WebApiFutLunes.Models.Match;
 using WebApiFutLunes.Models.Player;
 
@@ -19,14 +17,13 @@ namespace WebApiFutLunes.Controllers
     public class MatchesController : ApiController
     {
         private ApplicationDbContext _context { get; set; }
-        private MatchesRepository _matchesRepo { get; set; }
-        private PlayersRepository _playersRepo { get; set; }
+        private IMatchesRepository _matchesRepo { get; set; }
+        private IPlayersRepository _playersRepo { get; set; }
 
-        public MatchesController()
+        public MatchesController(IMatchesRepository matchesRepo, IPlayersRepository playersRepo)
         {
-            _context = new ApplicationDbContext();
-            _matchesRepo = new MatchesRepository();
-            _playersRepo = new PlayersRepository();
+            _matchesRepo = matchesRepo;
+            _playersRepo = playersRepo;
         }
 
         public async Task<IHttpActionResult> Get()
