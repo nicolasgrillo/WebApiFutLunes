@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiFutLunes", "WebApiFut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiFutLunes.Data", "WebApiFutLunes.Data\WebApiFutLunes.Data.csproj", "{D867A20D-02F2-45FF-96A5-113076047557}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiFutLunes.Test", "WebApiFutLunes.Test\WebApiFutLunes.Test.csproj", "{9B524924-97D0-4948-B14C-6B66B5A918A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D867A20D-02F2-45FF-96A5-113076047557}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D867A20D-02F2-45FF-96A5-113076047557}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D867A20D-02F2-45FF-96A5-113076047557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B524924-97D0-4948-B14C-6B66B5A918A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B524924-97D0-4948-B14C-6B66B5A918A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B524924-97D0-4948-B14C-6B66B5A918A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B524924-97D0-4948-B14C-6B66B5A918A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
