@@ -34,10 +34,8 @@ namespace WebApiFutLunes.Test.Controllers
 
             //Assert
 
-            Assert.IsTrue(
-                respType == typeof(OkResult) ||
-                respType == typeof(NotFoundResult)
-            );
+            //TODO: Should actually check for 200
+            Assert.IsNotInstanceOfType(response.GetType(), typeof(InternalServerErrorResult));
         }
 
         [TestMethod]
@@ -59,10 +57,8 @@ namespace WebApiFutLunes.Test.Controllers
 
             //Assert
 
-            Assert.IsTrue(
-                respType == typeof(OkResult) ||
-                respType == typeof(NotFoundResult)
-            );
+            //TODO: Should actually check for 200
+            Assert.IsNotInstanceOfType(response.GetType(), typeof(InternalServerErrorResult));
         }
 
         [TestMethod]
