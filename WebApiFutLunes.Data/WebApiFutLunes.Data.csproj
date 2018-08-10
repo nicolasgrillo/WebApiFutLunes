@@ -73,6 +73,7 @@
     <Compile Include="Contexts\ApplicationDbContext.cs" />
     <Compile Include="DTOs\AddUpdateMatchDto.cs" />
     <Compile Include="DTOs\PlayerDto.cs" />
+    <Compile Include="DTOs\RoleBindingModels.cs" />
     <Compile Include="DTOs\UserSubscription.cs" />
     <Compile Include="Entities\Match.cs" />
     <Compile Include="DTOs\AccountBindingModels.cs" />
