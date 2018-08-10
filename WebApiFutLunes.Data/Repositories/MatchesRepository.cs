@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using WebApiFutLunes.Data.Contexts;
 using WebApiFutLunes.Data.DTOs;
 using WebApiFutLunes.Data.Entities;
+using WebApiFutLunes.Data.Repositories.Interface;
 
 namespace WebApiFutLunes.Data.Repositories
 {
-    public class MatchesRepository
+    public class MatchesRepository : IMatchesRepository
     {
         private ApplicationDbContext _context;
 

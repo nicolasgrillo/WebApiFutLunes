@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using WebApiFutLunes.Data.Contexts;
 using WebApiFutLunes.Data.DTOs;
+using WebApiFutLunes.Data.Repositories.Interface;
 
 namespace WebApiFutLunes.Data.Repositories
 {
-    public class PlayersRepository
+    public class PlayersRepository : IPlayersRepository
     {
         private ApplicationDbContext _context;
 
