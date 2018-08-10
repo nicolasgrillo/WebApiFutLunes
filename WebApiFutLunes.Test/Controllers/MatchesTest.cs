@@ -145,5 +145,32 @@ namespace WebApiFutLunes.Test.Controllers
             //Should actually check for 201
             Assert.IsNotInstanceOfType(response.GetType(), typeof(InternalServerErrorResult));
         }
+
+        [TestMethod]
+        [TestCategory("MatchesTests")]
+        public async Task UpdateReturnsNoContent()
+        {
+            //Arrange
+
+            var controller = new MatchesController
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
+
+            //Act
+
+            IHttpActionResult response = await controller.Update(1, new AddUpdateMatchModel()
+            {
+                LocationMapUrl = "TestMatchMapUrl",
+                LocationTitle = "TestMatchUpdated",
+                MatchDate = DateTime.Now,
+                PlayerLimit = 10
+            });
+
+            //Assert
+            //Should actually check for 201
+            Assert.IsNotInstanceOfType(response.GetType(), typeof(InternalServerErrorResult));
+        }
     }
 }
