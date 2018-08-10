@@ -103,7 +103,7 @@ namespace WebApiFutLunes.Controllers
                     User = playerEntity
                 };
 
-                if (match.Players.Contains(playerDto))
+                if (match.Players.Any(p => p.User.UserName == playerDto.User.UserName))
                 {
                     return BadRequest("Player is already in the match");
                 }
@@ -111,7 +111,6 @@ namespace WebApiFutLunes.Controllers
                 {
                     //TODO: Should enable match transactions only for future matches
                     match.Players.Add(playerDto);
-                    playerEntity.Appearances++;
                 }
             }
 
@@ -156,7 +155,6 @@ namespace WebApiFutLunes.Controllers
                 {
                     //TODO: Should enable match transactions only for future matches
                     match.Players.Remove(playerDto);
-                    playerEntity.Appearances--;
                 }
                 else
                 {
@@ -173,7 +171,7 @@ namespace WebApiFutLunes.Controllers
 
         // Update match
         // PUT api/matches
-        public async Task<IHttpActionResult> Put(int id, [FromBody] AddUpdateMatchModel matchModel)
+        public async Task<IHttpActionResult> Update(int id, [FromBody] AddUpdateMatchModel matchModel)
         {
             if (!ModelState.IsValid)
             {
@@ -188,7 +186,36 @@ namespace WebApiFutLunes.Controllers
                 match.LocationMapUrl = matchModel.LocationMapUrl;
                 match.LocationTitle = matchModel.LocationTitle;
                 match.PlayerLimit = matchModel.PlayerLimit;
+                
+                if (await _context.SaveChangesAsync() <= 0)
+                {
+                    return InternalServerError();
+                }
+            }
+            else
+            {
+                return NotFound();
+            }
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
+        // Confirm match
+        // PUT api/matches/{id}/confirm
+        [Route("{id}/confirm")]
+        public async Task<IHttpActionResult> Confirm(int id)
+        {
+            var match = _context.Matches.FirstOrDefault(m => m.Id == id);
+
+            if (match != null)
+            {
+                if (match.MatchDate.CompareTo(DateTime.Now) >= 1)
+                    return BadRequest("Match must have happened to be confirmed.");
+
+                foreach (var userSubscription in match.Players)
+                {
+                    userSubscription.User.Appearances++;
+                }
+                
                 if (await _context.SaveChangesAsync() <= 0)
                 {
                     return InternalServerError();
