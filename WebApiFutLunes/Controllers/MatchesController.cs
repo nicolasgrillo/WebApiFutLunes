@@ -20,11 +20,13 @@ namespace WebApiFutLunes.Controllers
     {
         private ApplicationDbContext _context { get; set; }
         private MatchesRepository _matchesRepo { get; set; }
+        private PlayersRepository _playersRepo { get; set; }
 
         public MatchesController()
         {
             _context = new ApplicationDbContext();
-            _matchesRepo = new MatchesRepository(_context);
+            _matchesRepo = new MatchesRepository();
+            _playersRepo = new PlayersRepository();
         }
 
         public async Task<IHttpActionResult> Get()
@@ -89,8 +91,9 @@ namespace WebApiFutLunes.Controllers
             {
                 return NotFound();
             }
-            else { 
-                var playerEntity = _context.Users.FirstOrDefault(p => p.UserName == transaction.UserName);
+            else
+            {
+                var playerEntity = await _playersRepo.GetUserByUsername(transaction.UserName);
                 if (playerEntity == null)
                 {
                     return NotFound();
@@ -128,14 +131,14 @@ namespace WebApiFutLunes.Controllers
             }
 
 
-            var match = _context.Matches.FirstOrDefault(m => m.Id == transaction.MatchId);
+            var match = await _matchesRepo.GetMatchByIdAsync(transaction.MatchId);
             if (match == null)
             {
                 return NotFound();
             }
             else
             {
-                var playerEntity = _context.Users.FirstOrDefault(p => p.UserName == transaction.UserName);
+                var playerEntity = await _playersRepo.GetUserByUsername(transaction.UserName);
                 if (playerEntity == null)
                 {
                     return NotFound();
