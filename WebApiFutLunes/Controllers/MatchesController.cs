@@ -19,17 +19,17 @@ namespace WebApiFutLunes.Controllers
     public class MatchesController : ApiController
     {
         private ApplicationDbContext _context { get; set; }
-        private MatchesRepository _repo { get; set; }
+        private MatchesRepository _matchesRepo { get; set; }
 
         public MatchesController()
         {
             _context = new ApplicationDbContext();
-            _repo = new MatchesRepository(_context);
+            _matchesRepo = new MatchesRepository(_context);
         }
 
         public async Task<IHttpActionResult> Get()
         {
-            var result = await _repo.GetAllMatchesAsync();
+            var result = await _matchesRepo.GetAllMatchesAsync();
             if (!result.Any())
             {
                 return NotFound();
@@ -39,7 +39,7 @@ namespace WebApiFutLunes.Controllers
 
         public async Task<IHttpActionResult> Get(int id)
         {
-            var result = await _repo.GetMatchByIdAsync(id);
+            var result = await _matchesRepo.GetMatchByIdAsync(id);
             if (result == null)
             {
                 return NotFound();
@@ -66,7 +66,7 @@ namespace WebApiFutLunes.Controllers
                 Players = new List<UserSubscription>()
             };
             
-            if (await _repo.AddMatchAsync(match) <= 0)
+            if (await _matchesRepo.AddMatchAsync(match) <= 0)
             {
                 return InternalServerError();
             }
@@ -84,7 +84,7 @@ namespace WebApiFutLunes.Controllers
             }
 
 
-            Match match = await _repo.GetMatchByIdAsync(transaction.MatchId);
+            Match match = await _matchesRepo.GetMatchByIdAsync(transaction.MatchId);
             if (match == null)
             {
                 return NotFound();
@@ -108,7 +108,7 @@ namespace WebApiFutLunes.Controllers
                 }
                 else
                 {
-                    if (await _repo.SignUpPlayerAsync(match, playerDto) <= 0)
+                    if (await _matchesRepo.SignUpPlayerAsync(match, playerDto) <= 0)
                     {
                         return InternalServerError();
                     }
@@ -144,7 +144,7 @@ namespace WebApiFutLunes.Controllers
                 var subscription = match.Players.SingleOrDefault(p => p.User.UserName == playerEntity.UserName);
                 if (subscription != null)
                 {
-                    if (await _repo.DismissPlayerAsync(match, subscription) <= 0)
+                    if (await _matchesRepo.DismissPlayerAsync(match, subscription) <= 0)
                     {
                         return InternalServerError();
                     }
@@ -168,7 +168,7 @@ namespace WebApiFutLunes.Controllers
                 return BadRequest(ModelState);
             }
 
-            var match = await _repo.GetMatchByIdAsync(id);
+            var match = await _matchesRepo.GetMatchByIdAsync(id);
 
             if (match != null)
             {
@@ -183,7 +183,7 @@ namespace WebApiFutLunes.Controllers
                     PlayerLimit = matchModel.PlayerLimit
                 };
                 
-                if (await _repo.UpdateMatchAsync(match, aumDto) <= 0)
+                if (await _matchesRepo.UpdateMatchAsync(match, aumDto) <= 0)
                 {
                     return InternalServerError();
                 }
@@ -200,7 +200,7 @@ namespace WebApiFutLunes.Controllers
         [Route("{id}/confirm")]
         public async Task<IHttpActionResult> Confirm(int id)
         {
-            var match = await _repo.GetMatchByIdAsync(id);
+            var match = await _matchesRepo.GetMatchByIdAsync(id);
 
             if (match != null)
             {
@@ -208,7 +208,7 @@ namespace WebApiFutLunes.Controllers
                     return BadRequest("Match must have happened to be confirmed.");
 
                 
-                if (await _repo.ConfirmMatchAsync(match) <= 0)
+                if (await _matchesRepo.ConfirmMatchAsync(match) <= 0)
                 {
                     return InternalServerError();
                 }
