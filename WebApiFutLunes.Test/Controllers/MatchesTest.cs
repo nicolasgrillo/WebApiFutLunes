@@ -13,7 +13,33 @@ namespace WebApiFutLunes.Test.Controllers
     public class MatchesTest
     {
         [TestMethod]
+        [TestCategory("MatchesTests")]
         public async Task GetReturnsOkOrNotFound()
+        {
+            //Arrange
+
+            var controller = new MatchesController
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
+
+            //Act
+
+            IHttpActionResult response = await controller.Get();
+            Type respType = response.GetType();
+
+            //Assert
+
+            Assert.IsTrue(
+                respType == typeof(OkResult) ||
+                respType == typeof(NotFoundResult)
+            );
+        }
+
+        [TestMethod]
+        [TestCategory("MatchesTests")]
+        public async Task GetWithParamReturnsOkOrNotFound()
         {
             //Arrange
 
