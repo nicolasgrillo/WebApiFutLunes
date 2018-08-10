@@ -296,10 +296,10 @@ namespace WebApiFutLunes.Controllers
         [Authorize(Roles = "Admin")]
         [Route("user/{id:guid}/roles")]
         [HttpPut]
-        public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string id, [FromBody] string[] rolesToAssign)
+        public async Task<IHttpActionResult> AssignRolesToUser([FromBody] AddRolesToUserModel artuModel)
         {
             //TODO: Should find by username instead
-            var appUser = await this.UserManager.FindByIdAsync(id);
+            var appUser = await this.UserManager.FindByNameAsync(artuModel.Username);
 
             if (appUser == null)
             {
@@ -308,7 +308,7 @@ namespace WebApiFutLunes.Controllers
 
             var currentRoles = await this.UserManager.GetRolesAsync(appUser.Id);
 
-            var rolesNotExisting = rolesToAssign.Except(this.AppRoleManager.Roles.Select(x => x.Name)).ToArray();
+            var rolesNotExisting = artuModel.Roles.Except(this.AppRoleManager.Roles.Select(x => x.Name)).ToArray();
 
             if (rolesNotExisting.Any())
             {
@@ -325,7 +325,7 @@ namespace WebApiFutLunes.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult addResult = await this.UserManager.AddToRolesAsync(appUser.Id, rolesToAssign);
+            IdentityResult addResult = await this.UserManager.AddToRolesAsync(appUser.Id, artuModel.Roles);
 
             if (!addResult.Succeeded)
             {

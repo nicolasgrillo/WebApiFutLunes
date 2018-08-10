@@ -16,6 +16,12 @@ namespace WebApiFutLunes.Data.DTOs
         public string Name { get; set; }
     }
 
+    public class AddRolesToUserModel
+    {
+        public string Username { get; set; }
+        public string[] Roles { get; set; }
+    }
+
     public class UsersInRoleModel
     {
         public string Id { get; set; }
