@@ -5,6 +5,8 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebApiFutLunes.Controllers;
+using WebApiFutLunes.Data.Repositories;
+using WebApiFutLunes.Data.Repositories.Interface;
 using WebApiFutLunes.Models.Match;
 using WebApiFutLunes.Models.Player;
 
@@ -13,21 +15,32 @@ namespace WebApiFutLunes.Test.Controllers
     [TestClass]
     public class MatchesTest
     {
+        private MatchesController Controller { get; set; }
+        private IMatchesRepository MatchesRepository { get; set; }
+        private IPlayersRepository PlayersRepository { get; set; }
+
+        [TestInitialize]
+        public void MatchesTestInitialize()
+        {
+            MatchesRepository = new MatchesRepository();
+            PlayersRepository = new PlayersRepository();
+
+            Controller = new MatchesController(MatchesRepository, PlayersRepository)
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
+        }
+
         [TestMethod]
         [TestCategory("MatchesTests")]
         public async Task GetReturnsOkOrNotFound()
         {
             //Arrange
 
-            var controller = new MatchesController
-            {
-                Request = new HttpRequestMessage(),
-                Configuration = new HttpConfiguration()
-            };
-
             //Act
 
-            IHttpActionResult response = await controller.Get();
+            IHttpActionResult response = await Controller.Get();
             Type respType = response.GetType();
 
             //Assert
@@ -42,15 +55,9 @@ namespace WebApiFutLunes.Test.Controllers
         {
             //Arrange
 
-            var controller = new MatchesController
-            {
-                Request = new HttpRequestMessage(),
-                Configuration = new HttpConfiguration()
-            };
-
             //Act
 
-            IHttpActionResult response = await controller.Get(1);
+            IHttpActionResult response = await Controller.Get(1);
             Type respType = response.GetType();
 
             //Assert
@@ -64,16 +71,10 @@ namespace WebApiFutLunes.Test.Controllers
         public async Task AddMatchReturnsCreated()
         {
             //Arrange
-
-            var controller = new MatchesController
-            {
-                Request = new HttpRequestMessage(),
-                Configuration = new HttpConfiguration()
-            };
-
+            
             //Act
 
-            IHttpActionResult response = await controller.Post(new AddUpdateMatchModel()
+            IHttpActionResult response = await Controller.Post(new AddUpdateMatchModel()
             {
                 LocationTitle = "TestMatch",
                 LocationMapUrl = "TestMatchMapUrl",
@@ -92,15 +93,9 @@ namespace WebApiFutLunes.Test.Controllers
         {
             //Arrange
 
-            var controller = new MatchesController
-            {
-                Request = new HttpRequestMessage(),
-                Configuration = new HttpConfiguration()
-            };
-
             //Act
 
-            IHttpActionResult response = await controller.SignUp(new PlayerToMatchModel()
+            IHttpActionResult response = await Controller.SignUp(new PlayerToMatchModel()
             {
                 MatchId = 1,
                 SubscriptionDate = DateTime.Now,
@@ -118,16 +113,10 @@ namespace WebApiFutLunes.Test.Controllers
         public async Task DismissReturnsNoContent()
         {
             //Arrange
-
-            var controller = new MatchesController
-            {
-                Request = new HttpRequestMessage(),
-                Configuration = new HttpConfiguration()
-            };
-
+            
             //Act
 
-            IHttpActionResult response = await controller.Dismiss(new PlayerToMatchModel()
+            IHttpActionResult response = await Controller.Dismiss(new PlayerToMatchModel()
             {
                 MatchId = 1,
                 SubscriptionDate = DateTime.Now,
@@ -145,16 +134,10 @@ namespace WebApiFutLunes.Test.Controllers
         public async Task UpdateReturnsNoContent()
         {
             //Arrange
-
-            var controller = new MatchesController
-            {
-                Request = new HttpRequestMessage(),
-                Configuration = new HttpConfiguration()
-            };
-
+            
             //Act
 
-            IHttpActionResult response = await controller.Update(1, new AddUpdateMatchModel()
+            IHttpActionResult response = await Controller.Update(1, new AddUpdateMatchModel()
             {
                 LocationMapUrl = "TestMatchMapUrl",
                 LocationTitle = "TestMatchUpdated",
@@ -172,16 +155,10 @@ namespace WebApiFutLunes.Test.Controllers
         public async Task ConfirmReturnsNoContent()
         {
             //Arrange
-
-            var controller = new MatchesController
-            {
-                Request = new HttpRequestMessage(),
-                Configuration = new HttpConfiguration()
-            };
-
+            
             //Act
 
-            IHttpActionResult response = await controller.Confirm(1);
+            IHttpActionResult response = await Controller.Confirm(1);
 
             //Assert
             //TODO: Should actually check for 201
