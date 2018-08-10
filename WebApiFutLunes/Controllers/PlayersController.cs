@@ -9,6 +9,7 @@ using WebApiFutLunes.Models.Player;
 
 namespace WebApiFutLunes.Controllers
 {
+    [Authorize]
     public class PlayersController : ApiController
     {
         private ApplicationDbContext _context { get; set; }

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using WebApiFutLunes.Data.Contexts;
 using WebApiFutLunes.Data.Entities;
 using WebApiFutLunes.Data.DTOs;
 using WebApiFutLunes.Data.Repositories.Interface;
@@ -13,10 +12,10 @@ using WebApiFutLunes.Models.Player;
 
 namespace WebApiFutLunes.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/matches")]
     public class MatchesController : ApiController
     {
-        private ApplicationDbContext _context { get; set; }
         private IMatchesRepository _matchesRepo { get; set; }
         private IPlayersRepository _playersRepo { get; set; }
 
