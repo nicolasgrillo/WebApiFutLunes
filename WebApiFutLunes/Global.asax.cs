@@ -10,14 +10,6 @@ namespace WebApiFutLunes
 {
     public class WebApiApplication : NinjectHttpApplication
     {
-        protected void Application_Start()
-        {
-            AreaRegistration.RegisterAllAreas();
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            AutoMapperConfiguration.Configure();
-        }
-
         protected override IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
@@ -29,6 +21,15 @@ namespace WebApiFutLunes
         {
             kernel.Bind<IMatchesRepository>().To<MatchesRepository>();
             kernel.Bind<IPlayersRepository>().To<PlayersRepository>();
+        }
+
+        protected override void OnApplicationStarted()
+        {
+            AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            AutoMapperConfiguration.Configure();
+            base.OnApplicationStarted();
         }
     }
 }
