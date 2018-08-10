@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
+using WebApiFutLunes.Helpers.ContentNegotiation;
 
 namespace WebApiFutLunes
 {
@@ -12,9 +13,13 @@ namespace WebApiFutLunes
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
+            // Content Negotiation
+            config.RemoveXmlFormatter();
+            config.SetCamelCaseResolverForJson();
+
             // Web API routes
             config.MapHttpAttributeRoutes();
-
+            
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

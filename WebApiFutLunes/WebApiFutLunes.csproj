@@ -225,6 +225,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AutoMapper\AutoMapperConfiguration.cs" />
+    <Compile Include="Helpers\ContentNegotiation\ContentNegotiationExtensions.cs" />
     <Compile Include="Models\Match\AddUpdateMatchModel.cs" />
     <Compile Include="Models\Player\PlayerToMatchModel.cs" />
     <Compile Include="Models\Player\PlayerModel.cs" />
