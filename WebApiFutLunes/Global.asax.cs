@@ -2,6 +2,8 @@
 using System.Web.Mvc;
 using Ninject;
 using Ninject.Web.Common.WebHost;
+using WebApiFutLunes.Data.Repositories;
+using WebApiFutLunes.Data.Repositories.Interface;
 using WebApiFutLunes.Helpers.AutoMapper;
 
 namespace WebApiFutLunes
@@ -25,7 +27,8 @@ namespace WebApiFutLunes
 
         private void RegisterServices(IKernel kernel)
         {
-            // e.g. kernel.Load(Assembly.GetExecutingAssembly());
+            kernel.Bind<IMatchesRepository>().To<MatchesRepository>();
+            kernel.Bind<IPlayersRepository>().To<PlayersRepository>();
         }
     }
 }
