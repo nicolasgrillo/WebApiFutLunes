@@ -164,12 +164,33 @@ namespace WebApiFutLunes.Test.Controllers
             {
                 LocationMapUrl = "TestMatchMapUrl",
                 LocationTitle = "TestMatchUpdated",
-                MatchDate = DateTime.Now,
+                MatchDate = DateTime.Now.AddDays(-7),
                 PlayerLimit = 10
             });
 
             //Assert
-            //Should actually check for 201
+            //TODO: Should actually check for 201
+            Assert.IsNotInstanceOfType(response.GetType(), typeof(InternalServerErrorResult));
+        }
+
+        [TestMethod]
+        [TestCategory("MatchesTests")]
+        public async Task ConfirmReturnsNoContent()
+        {
+            //Arrange
+
+            var controller = new MatchesController
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
+
+            //Act
+
+            IHttpActionResult response = await controller.Confirm(1);
+
+            //Assert
+            //TODO: Should actually check for 201
             Assert.IsNotInstanceOfType(response.GetType(), typeof(InternalServerErrorResult));
         }
     }
