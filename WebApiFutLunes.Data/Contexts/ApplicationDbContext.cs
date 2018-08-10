@@ -18,5 +18,6 @@ namespace WebApiFutLunes.Data.Contexts
         }
 
         public DbSet<Match> Matches { get; set; }
+        public DbSet<NLogEntry> Entries { get; set; }
     }
 }

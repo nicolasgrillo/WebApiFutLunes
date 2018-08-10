@@ -77,9 +77,14 @@
     <Compile Include="Entities\Match.cs" />
     <Compile Include="DTOs\AccountBindingModels.cs" />
     <Compile Include="DTOs\ApplicationUserModel.cs" />
+    <Compile Include="Entities\NLogEntry.cs" />
     <Compile Include="Migrations\201808091854147_Initial.cs" />
     <Compile Include="Migrations\201808091854147_Initial.Designer.cs">
       <DependentUpon>201808091854147_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808101920015_NLogEntries.cs" />
+    <Compile Include="Migrations\201808101920015_NLogEntries.Designer.cs">
+      <DependentUpon>201808101920015_NLogEntries.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +100,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201808091854147_Initial.resx">
       <DependentUpon>201808091854147_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808101920015_NLogEntries.resx">
+      <DependentUpon>201808101920015_NLogEntries.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
