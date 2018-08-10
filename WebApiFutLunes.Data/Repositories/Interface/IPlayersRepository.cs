@@ -8,5 +8,6 @@ namespace WebApiFutLunes.Data.Repositories.Interface
     {
         Task<List<PlayerDto>> GetAllPlayers();
         Task<PlayerDto> GetPlayerByUsername(string username);
+        Task<ApplicationUser> GetUserByUsername(string username);
     }
 }

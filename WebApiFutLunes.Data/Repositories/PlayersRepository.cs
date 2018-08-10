@@ -8,6 +8,7 @@ using WebApiFutLunes.Data.Repositories.Interface;
 
 namespace WebApiFutLunes.Data.Repositories
 {
+
     public class PlayersRepository : IPlayersRepository
     {
         private ApplicationDbContext _context;
@@ -27,6 +28,11 @@ namespace WebApiFutLunes.Data.Repositories
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == username);
             return Mapper.Map<ApplicationUser, PlayerDto>(user);
+        }
+
+        public async Task<ApplicationUser> GetUserByUsername(string username)
+        {
+            return await _context.Users.SingleOrDefaultAsync(u => u.UserName == username);
         }
     }
 }
