@@ -257,6 +257,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\WebApiFutLunes - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebApiFutLunes.Data\WebApiFutLunes.Data.csproj">
