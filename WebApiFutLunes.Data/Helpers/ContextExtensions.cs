@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using WebApiFutLunes.Data.Contexts;
 using WebApiFutLunes.Data.DTOs;
+using WebApiFutLunes.Data.Entities;
 
 namespace WebApiFutLunes.Data.Helpers
 {
@@ -40,8 +42,17 @@ namespace WebApiFutLunes.Data.Helpers
             manager.AddToRoles(adminUser.Id, new string[] { "Admin" });
         }
 
-        public static void CreatePlayers(this UserManager<ApplicationUser> manager)
+        public static void CreateDummyMatch(this UserManager<ApplicationUser> manager, ApplicationDbContext context)
         {
+            Match m = new Match()
+            {
+                LocationMapUrl = "DummyMapUrl.com",
+                LocationTitle = "DummyLocationTitle",
+                MatchDate = DateTime.Now.AddDays(7),
+                PlayerLimit = 10,
+                Players = new List<UserSubscription>()
+            };
+
             for (int i = 1; i < 11; i++)
             {
                 var customName = "Player" + i;
@@ -58,7 +69,17 @@ namespace WebApiFutLunes.Data.Helpers
 
                 var createdUser = manager.FindByName(customName);
                 manager.AddToRoles(createdUser.Id, new string[] { "User" });
+
+                var us = new UserSubscription()
+                {
+                    SubscriptionDate = DateTime.Now,
+                    User = createdUser
+                };
+
+                m.Players.Add(us);
             }
+
+            context.Matches.Add(m);
         }
     }
 }

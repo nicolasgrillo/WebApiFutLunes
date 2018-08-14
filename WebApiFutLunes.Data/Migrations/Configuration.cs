@@ -20,16 +20,16 @@ namespace WebApiFutLunes.Data.Migrations
 
         protected override void Seed(WebApiFutLunes.Data.Contexts.ApplicationDbContext context)
         {
-            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
             manager.CreateAdmin();
             roleManager.CreateRoles();
 
             manager.ElevateAdmin();
 
-            manager.CreatePlayers();
+            manager.CreateDummyMatch(context);
         }
     }
 }
