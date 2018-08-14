@@ -11,7 +11,15 @@ namespace WebApiFutLunes.Data.DTOs
     {
         [Key]
         public int Id { get; set; }
-        public ApplicationUser User { get; set; }
+        public string User { get; set; }
         public DateTime SubscriptionDate { get; set; }
+
+        public UserSubscription(){}
+
+        public UserSubscription(ApplicationUser user, DateTime date)
+        {
+            User = user.UserName;
+            SubscriptionDate = date;
+        }
     }
 }
