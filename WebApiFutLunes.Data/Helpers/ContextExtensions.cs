@@ -70,11 +70,7 @@ namespace WebApiFutLunes.Data.Helpers
                 var createdUser = manager.FindByName(customName);
                 manager.AddToRoles(createdUser.Id, new string[] { "User" });
 
-                var us = new UserSubscription()
-                {
-                    SubscriptionDate = DateTime.Now,
-                    User = createdUser
-                };
+                var us = new UserSubscription(createdUser, DateTime.Now);
 
                 m.Players.Add(us);
             }
