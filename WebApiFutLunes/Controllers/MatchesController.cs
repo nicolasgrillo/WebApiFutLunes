@@ -45,6 +45,20 @@ namespace WebApiFutLunes.Controllers
             return Ok(result);
         }
 
+        // Get current match
+        // GET api/matches/current
+        [Route("current")]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetCurrentMatch()
+        {
+            var result = await _matchesRepo.GetCurrentMatchAsync();
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+        }
+
         // Add new match
         // POST api/matches
         [Route("add")]
@@ -95,13 +109,9 @@ namespace WebApiFutLunes.Controllers
                     return NotFound();
                 }
 
-                var playerDto = new UserSubscription()
-                {
-                    SubscriptionDate = DateTime.Now,
-                    User = playerEntity
-                };
+                var playerDto = new UserSubscription(playerEntity, DateTime.Now);
 
-                if (match.Players.Any(p => p.User.UserName == playerDto.User.UserName))
+                if (match.Players.Any(p => p.User == playerDto.User))
                 {
                     return BadRequest("Player is already in the match");
                 }
@@ -140,7 +150,7 @@ namespace WebApiFutLunes.Controllers
                     return NotFound();
                 }
 
-                var subscription = match.Players.SingleOrDefault(p => p.User.UserName == playerEntity.UserName);
+                var subscription = match.Players.SingleOrDefault(p => p.User == playerEntity.UserName);
                 if (subscription != null)
                 {
                     if (await _matchesRepo.DismissPlayerAsync(match, subscription) <= 0)
