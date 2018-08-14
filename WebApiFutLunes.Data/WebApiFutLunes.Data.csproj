@@ -80,6 +80,7 @@
     <Compile Include="DTOs\AccountBindingModels.cs" />
     <Compile Include="DTOs\ApplicationUserModel.cs" />
     <Compile Include="Entities\NLogEntry.cs" />
+    <Compile Include="Helpers\ContextExtensions.cs" />
     <Compile Include="Migrations\201808091854147_Initial.cs" />
     <Compile Include="Migrations\201808091854147_Initial.Designer.cs">
       <DependentUpon>201808091854147_Initial.cs</DependentUpon>
