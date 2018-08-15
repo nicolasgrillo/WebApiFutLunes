@@ -9,6 +9,7 @@ using WebApiFutLunes.Models.Player;
 
 namespace WebApiFutLunes.Controllers
 {
+    [RoutePrefix("api/players")]
     [Authorize]
     public class PlayersController : ApiController
     {
@@ -20,7 +21,7 @@ namespace WebApiFutLunes.Controllers
             _repo = repo;
         }
 
-        public async Task<IHttpActionResult> Get()
+        public async Task<IHttpActionResult> GetAll()
         {
             List<PlayerModel> players =
                 Mapper.Map<List<PlayerDto>, List<PlayerModel>>(await _repo.GetAllPlayers());
@@ -30,6 +31,19 @@ namespace WebApiFutLunes.Controllers
                 return NotFound();
             }
             return Ok(players);
+        }
+
+        [Route("{username}")]
+        public async Task<IHttpActionResult> GetByUsername(string username)
+        {
+            PlayerModel player =
+                Mapper.Map<PlayerDto, PlayerModel>(await _repo.GetPlayerByUsername(username));
+
+            if (player == null)
+            {
+                return NotFound();
+            }
+            return Ok(player);
         }
     }
 }
