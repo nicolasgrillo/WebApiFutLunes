@@ -89,9 +89,9 @@
     <Compile Include="Migrations\201808101920015_NLogEntries.Designer.cs">
       <DependentUpon>201808101920015_NLogEntries.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808141725473_US-UsernameIndex.cs" />
-    <Compile Include="Migrations\201808141725473_US-UsernameIndex.Designer.cs">
-      <DependentUpon>201808141725473_US-UsernameIndex.cs</DependentUpon>
+    <Compile Include="Migrations\201808161426301_SeedOnly.cs" />
+    <Compile Include="Migrations\201808161426301_SeedOnly.Designer.cs">
+      <DependentUpon>201808161426301_SeedOnly.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,8 +111,8 @@
     <EmbeddedResource Include="Migrations\201808101920015_NLogEntries.resx">
       <DependentUpon>201808101920015_NLogEntries.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808141725473_US-UsernameIndex.resx">
-      <DependentUpon>201808141725473_US-UsernameIndex.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808161426301_SeedOnly.resx">
+      <DependentUpon>201808161426301_SeedOnly.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

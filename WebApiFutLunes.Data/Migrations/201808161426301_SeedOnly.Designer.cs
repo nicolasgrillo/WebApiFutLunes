@@ -7,13 +7,13 @@ namespace WebApiFutLunes.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class USUsernameIndex : IMigrationMetadata
+    public sealed partial class SeedOnly : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(USUsernameIndex));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SeedOnly));
         
         string IMigrationMetadata.Id
         {
-            get { return "201808141725473_US-UsernameIndex"; }
+            get { return "201808161426301_SeedOnly"; }
         }
         
         string IMigrationMetadata.Source
