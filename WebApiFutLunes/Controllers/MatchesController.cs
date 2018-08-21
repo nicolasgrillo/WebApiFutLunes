@@ -98,6 +98,7 @@ namespace WebApiFutLunes.Controllers
                 LocationTitle = matchModel.LocationTitle,
                 MatchDate = matchModel.MatchDate,
                 PlayerLimit = matchModel.PlayerLimit,
+                Open = true,
                 Players = new List<UserSubscription>()
             };
             
