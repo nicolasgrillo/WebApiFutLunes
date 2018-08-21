@@ -208,7 +208,7 @@ namespace WebApiFutLunes.Controllers
         /// <returns>Status 400/500/404/204</returns>
         [Authorize(Users = "admin")]
         [HttpPost]
-        [Route("update")]
+        [Route("update/{id}")]
         public async Task<IHttpActionResult> Update(int id, [FromBody] AddUpdateMatchModel matchModel)
         {
             if (!ModelState.IsValid)
