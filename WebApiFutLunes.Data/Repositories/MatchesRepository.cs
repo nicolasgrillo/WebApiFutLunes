@@ -63,10 +63,32 @@ namespace WebApiFutLunes.Data.Repositories
 
         public async Task<int> ConfirmMatchAsync(Match match)
         {
-            foreach (var userSubscription in match.Players)
+            match.Open = false;
+
+            var activePlayers = match.Players
+                .OrderBy(p => p.SubscriptionDate)
+                .Take(10);
+
+            foreach (var userSubscription in activePlayers)
             {
                 var player = _context.Users.SingleOrDefault(u => u.UserName == userSubscription.User);
                 if (player != null) player.Appearances++;
+            }
+
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> DeConfirmMatchAsync(Match match)
+        {
+            match.Open = true;
+            var activePlayers = match.Players
+                .OrderBy(p => p.SubscriptionDate)
+                .Take(10);
+
+            foreach (var userSubscription in activePlayers)
+            {
+                var player = _context.Users.SingleOrDefault(u => u.UserName == userSubscription.User);
+                if (player != null) player.Appearances--;
             }
 
             return await _context.SaveChangesAsync();

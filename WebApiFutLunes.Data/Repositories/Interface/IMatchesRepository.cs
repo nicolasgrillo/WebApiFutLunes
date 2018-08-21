@@ -15,5 +15,6 @@ namespace WebApiFutLunes.Data.Repositories.Interface
         Task<int> DismissPlayerAsync(Match match, UserSubscription us);
         Task<int> UpdateMatchAsync(Match match, AddUpdateMatchDto aumDto);
         Task<int> ConfirmMatchAsync(Match match);
+        Task<int> DeConfirmMatchAsync(Match match);
     }
 }

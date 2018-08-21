@@ -259,9 +259,39 @@ namespace WebApiFutLunes.Controllers
             {
                 if (match.MatchDate.CompareTo(DateTime.Now) >= 1)
                     return BadRequest("Match must have happened to be confirmed.");
-
+                if (!match.Open)
+                    return BadRequest("Match is already confirmed");
                 
                 if (await _matchesRepo.ConfirmMatchAsync(match) <= 0)
+                {
+                    return InternalServerError();
+                }
+            }
+            else
+            {
+                return NotFound();
+            }
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // POST api/matches/{id}/deconfirm
+        /// <summary>
+        /// Deconfirm match
+        /// </summary>
+        /// <param name="id">Match ID to deconfirm.</param>
+        /// <returns>Status 400/500/404/204</returns>
+        [Route("{id}/deconfirm")]
+        [HttpPost]
+        public async Task<IHttpActionResult> Deconfirm(int id)
+        {
+            var match = await _matchesRepo.GetMatchByIdAsync(id);
+
+            if (match != null)
+            {
+                if (match.Open)
+                    return BadRequest("Match is already open");
+
+                if (await _matchesRepo.DeConfirmMatchAsync(match) <= 0)
                 {
                     return InternalServerError();
                 }

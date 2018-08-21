@@ -50,6 +50,7 @@ namespace WebApiFutLunes.Data.Helpers
                 LocationTitle = "DummyLocationTitle",
                 MatchDate = DateTime.Now.AddDays(7),
                 PlayerLimit = 10,
+                Open = true,
                 Players = new List<UserSubscription>()
             };
 

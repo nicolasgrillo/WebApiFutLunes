@@ -15,6 +15,7 @@ namespace WebApiFutLunes.Data.Entities
         public string LocationMapUrl { get; set; }
         public DateTime MatchDate { get; set; }
         public int PlayerLimit { get; set; }
+        public bool Open { get; set; }
         public virtual ICollection<UserSubscription> Players { get; set; }
     }
 }

@@ -97,6 +97,10 @@
     <Compile Include="Migrations\201808211405266_UserSubscriptionUpdate.Designer.cs">
       <DependentUpon>201808211405266_UserSubscriptionUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808211811420_MatchStatus.cs" />
+    <Compile Include="Migrations\201808211811420_MatchStatus.Designer.cs">
+      <DependentUpon>201808211811420_MatchStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Interface\IMatchesRepository.cs" />
@@ -120,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808211405266_UserSubscriptionUpdate.resx">
       <DependentUpon>201808211405266_UserSubscriptionUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808211811420_MatchStatus.resx">
+      <DependentUpon>201808211811420_MatchStatus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
