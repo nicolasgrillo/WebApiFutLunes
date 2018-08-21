@@ -340,7 +340,8 @@ namespace WebApiFutLunes.Controllers
 
         // POST api/account/update
         [Route("update")]
-        public async Task<IHttpActionResult> UpdateUser(UpdateUserModel model)
+        [HttpPost]
+        public async Task<IHttpActionResult> UpdateUser([FromBody] UpdateUserModel model)
         {
             if (!ModelState.IsValid)
             {
