@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
@@ -13,6 +14,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using WebApiFutLunes.Data.DTOs;
+using WebApiFutLunes.Models.Player;
 using WebApiFutLunes.Providers;
 using WebApiFutLunes.Results;
 
@@ -331,6 +333,32 @@ namespace WebApiFutLunes.Controllers
             {
                 ModelState.AddModelError("", "Failed to add user roles");
                 return BadRequest(ModelState);
+            }
+
+            return Ok();
+        }
+
+        // POST api/account/update
+        [Route("update")]
+        public async Task<IHttpActionResult> UpdateUser(UpdateUserModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            ApplicationUser user = await this.UserManager.FindByNameAsync(model.Username);
+            if (user == null) return NotFound();
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
             }
 
             return Ok();

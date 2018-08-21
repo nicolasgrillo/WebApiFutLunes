@@ -243,6 +243,7 @@
     <Compile Include="Models\Match\AddUpdateMatchModel.cs" />
     <Compile Include="Models\Player\PlayerToMatchModel.cs" />
     <Compile Include="Models\Player\PlayerModel.cs" />
+    <Compile Include="Models\Player\UpdateUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
