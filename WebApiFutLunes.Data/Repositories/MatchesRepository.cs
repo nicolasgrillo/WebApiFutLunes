@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using WebApiFutLunes.Data.Contexts;
 using WebApiFutLunes.Data.DTOs;
@@ -25,6 +26,12 @@ namespace WebApiFutLunes.Data.Repositories
         public async Task<Match> GetMatchByIdAsync(int id)
         {
             return await _context.Matches.FindAsync(id);
+        }
+
+        public async Task<Match> GetCurrentMatchAsync()
+        {
+            var lastMatchId = _context.Matches.Max(m => m.Id);
+            return await _context.Matches.FindAsync(lastMatchId);
         }
 
         public async Task<int> AddMatchAsync(Match match)
@@ -58,7 +65,8 @@ namespace WebApiFutLunes.Data.Repositories
         {
             foreach (var userSubscription in match.Players)
             {
-                userSubscription.User.Appearances++;
+                var player = _context.Users.SingleOrDefault(u => u.UserName == userSubscription.User);
+                if (player != null) player.Appearances++;
             }
 
             return await _context.SaveChangesAsync();

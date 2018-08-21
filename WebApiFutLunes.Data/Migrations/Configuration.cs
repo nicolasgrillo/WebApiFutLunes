@@ -2,6 +2,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WebApiFutLunes.Data.Contexts;
 using WebApiFutLunes.Data.DTOs;
+using WebApiFutLunes.Data.Helpers;
 
 namespace WebApiFutLunes.Data.Migrations
 {
@@ -19,30 +20,16 @@ namespace WebApiFutLunes.Data.Migrations
 
         protected override void Seed(WebApiFutLunes.Data.Contexts.ApplicationDbContext context)
         {
-            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
-            var user = new ApplicationUser()
-            {
-                UserName = "admin",
-                Email = "adming@futlunes.com",
-                EmailConfirmed = true,
-                FirstName = "admin",
-                LastName = "futlunes"
-            };
+            manager.CreateAdmin();
+            roleManager.CreateRoles();
 
-            manager.Create(user, "fut@LUNES123");
+            manager.ElevateAdmin();
 
-            if (!roleManager.Roles.Any())
-            {
-                roleManager.Create(new IdentityRole { Name = "Admin" });
-                roleManager.Create(new IdentityRole { Name = "User" });
-            }
-
-            var adminUser = manager.FindByName("admin");
-
-            manager.AddToRoles(adminUser.Id, new string[] { "Admin" });
+            manager.CreateDummyMatch(context);
         }
     }
 }

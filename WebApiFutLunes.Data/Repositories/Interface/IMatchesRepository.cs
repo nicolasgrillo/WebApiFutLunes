@@ -9,6 +9,7 @@ namespace WebApiFutLunes.Data.Repositories.Interface
     {
         Task<List<Match>> GetAllMatchesAsync();
         Task<Match> GetMatchByIdAsync(int id);
+        Task<Match> GetCurrentMatchAsync();
         Task<int> AddMatchAsync(Match match);
         Task<int> SignUpPlayerAsync(Match match, UserSubscription us);
         Task<int> DismissPlayerAsync(Match match, UserSubscription us);

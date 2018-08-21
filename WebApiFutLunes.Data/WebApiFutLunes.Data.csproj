@@ -80,6 +80,7 @@
     <Compile Include="DTOs\AccountBindingModels.cs" />
     <Compile Include="DTOs\ApplicationUserModel.cs" />
     <Compile Include="Entities\NLogEntry.cs" />
+    <Compile Include="Helpers\ContextExtensions.cs" />
     <Compile Include="Migrations\201808091854147_Initial.cs" />
     <Compile Include="Migrations\201808091854147_Initial.Designer.cs">
       <DependentUpon>201808091854147_Initial.cs</DependentUpon>
@@ -87,6 +88,10 @@
     <Compile Include="Migrations\201808101920015_NLogEntries.cs" />
     <Compile Include="Migrations\201808101920015_NLogEntries.Designer.cs">
       <DependentUpon>201808101920015_NLogEntries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808161426301_SeedOnly.cs" />
+    <Compile Include="Migrations\201808161426301_SeedOnly.Designer.cs">
+      <DependentUpon>201808161426301_SeedOnly.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808101920015_NLogEntries.resx">
       <DependentUpon>201808101920015_NLogEntries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808161426301_SeedOnly.resx">
+      <DependentUpon>201808161426301_SeedOnly.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

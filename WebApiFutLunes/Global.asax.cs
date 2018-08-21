@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using Ninject;
 using Ninject.Web.Common.WebHost;
@@ -30,6 +32,18 @@ namespace WebApiFutLunes
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             AutoMapperConfiguration.Configure();
             base.OnApplicationStarted();
+        }
+        
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            if (HttpContext.Current.Request.HttpMethod == "OPTIONS")
+            {
+                HttpContext.Current.Response.AddHeader("Cache-Control", "no-cache");
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "GET, POST");
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
+                HttpContext.Current.Response.AddHeader("Access-Control-Max-Age", "1728000");
+                HttpContext.Current.Response.End();
+            }
         }
     }
 }
