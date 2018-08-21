@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
@@ -24,10 +23,13 @@ namespace WebApiFutLunes.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
+        #region Attributes
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _AppRoleManager;
+        #endregion
 
+        #region Constructors
         public AccountController()
         {
         }
@@ -38,7 +40,10 @@ namespace WebApiFutLunes.Controllers
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
         }
+        #endregion
 
+        #region Properties
+        
         public ApplicationUserManager UserManager
         {
             get
@@ -61,7 +66,10 @@ namespace WebApiFutLunes.Controllers
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+        #endregion
 
+        #region Methods
+           
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()
@@ -300,7 +308,6 @@ namespace WebApiFutLunes.Controllers
         [HttpPut]
         public async Task<IHttpActionResult> AssignRolesToUser([FromBody] AddRolesToUserModel artuModel)
         {
-            //TODO: Should find by username instead
             var appUser = await this.UserManager.FindByNameAsync(artuModel.Username);
 
             if (appUser == null)
@@ -480,6 +487,8 @@ namespace WebApiFutLunes.Controllers
                 return HttpServerUtility.UrlTokenEncode(data);
             }
         }
+
+        #endregion
 
         #endregion
     }
