@@ -25,6 +25,12 @@ namespace WebApiFutLunes.Controllers
             _playersRepo = playersRepo;
         }
 
+        // GET api/matches
+        /// <summary>
+        /// Get all matches
+        /// </summary>
+        /// <returns>List of all matches or 404</returns>
+        [HttpGet]
         public async Task<IHttpActionResult> Get()
         {
             var result = await _matchesRepo.GetAllMatchesAsync();
@@ -35,6 +41,13 @@ namespace WebApiFutLunes.Controllers
             return Ok(result);
         }
 
+        // GET api/matches/id
+        /// <summary>
+        /// Get match by id
+        /// </summary>
+        /// <param name="id">The ID of the match.</param>
+        /// <returns>Found match or 404</returns>
+        [HttpGet]
         public async Task<IHttpActionResult> Get(int id)
         {
             var result = await _matchesRepo.GetMatchByIdAsync(id);
@@ -45,10 +58,14 @@ namespace WebApiFutLunes.Controllers
             return Ok(result);
         }
 
-        // Get current match
         // GET api/matches/current
+        /// <summary>
+        /// Get current match
+        /// </summary>
+        /// <returns>Last Match (By ID) or 404</returns>
         [Route("current")]
         [AllowAnonymous]
+        [HttpGet]
         public async Task<IHttpActionResult> GetCurrentMatch()
         {
             var result = await _matchesRepo.GetCurrentMatchAsync();
@@ -59,8 +76,14 @@ namespace WebApiFutLunes.Controllers
             return Ok(result);
         }
 
-        // Add new match
         // POST api/matches
+        /// <summary>
+        /// Add new match
+        /// </summary>
+        /// <param name="matchModel">Model required to create a new Match</param>
+        /// <returns>Status 400/500/201</returns>
+        [HttpPost]
+        [Authorize(Users = "admin")]
         [Route("add")]
         public async Task<IHttpActionResult> Post([FromBody] AddUpdateMatchModel matchModel)
         {
@@ -85,9 +108,14 @@ namespace WebApiFutLunes.Controllers
             return StatusCode(HttpStatusCode.Created);
         }
 
-        // Add player to match
-        // POST api/matches
+        // POST api/matches/signup
+        /// <summary>
+        /// Add player to match
+        /// </summary>
+        /// <param name="transaction">Model required to update Player-Match relation</param>
+        /// <returns>Status 400/500/404/204</returns>
         [Route("signup")]
+        [HttpPost]
         public async Task<IHttpActionResult> SignUp([FromBody] PlayerToMatchModel transaction)
         {
             if (!ModelState.IsValid)
@@ -126,9 +154,14 @@ namespace WebApiFutLunes.Controllers
             }
         }
 
-        // Remove player from match
-        // POST api/matches
+        // POST api/matches/dismiss
+        /// <summary>
+        /// Remove player from match
+        /// </summary>
+        /// <param name="transaction">Model required to update Player-Match relation</param>
+        /// <returns>Status 400/500/404/204</returns>
         [Route("dismiss")]
+        [HttpPost]
         public async Task<IHttpActionResult> Dismiss([FromBody] PlayerToMatchModel transaction)
         {
             if (!ModelState.IsValid)
@@ -166,10 +199,16 @@ namespace WebApiFutLunes.Controllers
             }
         }
 
-        // Update match
-        // PUT api/matches
-        // TODO: Check admin role
-        [HttpPut]
+        // POST api/matches/update
+        /// <summary>
+        /// Update match
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="matchModel">Model required to update Match</param>
+        /// <returns>Status 400/500/404/204</returns>
+        [Authorize(Users = "admin")]
+        [HttpPost]
+        [Route("update")]
         public async Task<IHttpActionResult> Update(int id, [FromBody] AddUpdateMatchModel matchModel)
         {
             if (!ModelState.IsValid)
@@ -204,9 +243,14 @@ namespace WebApiFutLunes.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // Confirm match
         // POST api/matches/{id}/confirm
+        /// <summary>
+        /// Confirm match
+        /// </summary>
+        /// <param name="id">Match ID to confirm.</param>
+        /// <returns>Status 400/500/404/204</returns>
         [Route("{id}/confirm")]
+        [HttpPost]
         public async Task<IHttpActionResult> Confirm(int id)
         {
             var match = await _matchesRepo.GetMatchByIdAsync(id);
