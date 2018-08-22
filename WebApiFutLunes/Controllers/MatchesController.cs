@@ -138,7 +138,10 @@ namespace WebApiFutLunes.Controllers
                     return NotFound();
                 }
 
-                var playerDto = new UserSubscription(playerEntity, DateTime.Now);
+                TimeZoneInfo argZone = TimeZoneInfo.FindSystemTimeZoneById("Argentina Standard Time");
+                DateTime argTime = TimeZoneInfo.ConvertTime(DateTime.Now, argZone);
+
+                var playerDto = new UserSubscription(playerEntity, argTime);
 
                 if (match.Players.Any(p => p.User == playerDto.User))
                 {
